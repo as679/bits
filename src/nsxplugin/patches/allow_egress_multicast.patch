@@ -1,0 +1,27 @@
+diff -Naur vmware/common/config.py /root/vmware/common/config.py
+--- vmware/common/config.py	2015-02-07 14:18:30.804129504 -0800
++++ /root/vmware/common/config.py	2015-02-07 14:18:53.955392555 -0800
+@@ -77,7 +77,10 @@
+                help=_("The default option leverages service nodes to perform"
+                       " packet replication though one could set to this to "
+                       "'source' to perform replication locally. This is useful"
+-                      " if one does not want to deploy a service node(s)."))
++                      " if one does not want to deploy a service node(s).")),
++    cfg.BoolOpt('allow_egress_multicast', default=False,
++                deprecated_group='NVP',
++                help=_("default setting for switch_port with port_security"))
+ ]
+
+ sync_opts = [
+diff -Naur vmware/nsxlib/switch.py /root/vmware/nsxlib/switch.py
+--- vmware/nsxlib/switch.py	2015-02-07 14:09:22.393584236 -0800
++++ /root/vmware/nsxlib/switch.py	2015-02-07 14:23:03.647443920 -0800
+@@ -45,6 +45,8 @@
+                           allowed_address_pairs):
+     lport_obj['allowed_address_pairs'] = []
+     if port_security_enabled:
++        if cfg.CONF.NSX.allow_egress_multicast:
++            lport_obj['allow_egress_multicast'] = cfg.CONF.NSX.allow_egress_multicast
+         for fixed_ip in fixed_ips:
+             ip_address = fixed_ip.get('ip_address')
+             if ip_address:
