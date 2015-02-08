@@ -5,6 +5,7 @@ DOCUMENTATION = '''
 '''
 
 EXAMPLES = '''
+- action : vmwpromisc host=172.17.100.120 user=root pwd=vmware dc=DataCenter network=DVPortGroup state=set
 '''
 
 

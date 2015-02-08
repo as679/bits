@@ -5,6 +5,7 @@ DOCUMENTATION = '''
 '''
 
 EXAMPLES = '''
+- action : vmwadvopt host=172.17.100.120 user=root pwd=vmware dc=DataCenter cluster=Cluster option=Net.ReversePathFwdCheckPromisc value=1
 '''
 
 
